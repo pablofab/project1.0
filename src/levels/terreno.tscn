@@ -1,9 +1,10 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://addons/zylann.hterrain/hterrain_texture_set.gd" type="Script" id=1]
 [ext_resource path="res://src/player/Player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://suelo2/Ground007_1K_Color.jpg" type="Texture" id=3]
 [ext_resource path="res://pasto/Ground037_1K_Color.jpg" type="Texture" id=4]
+[ext_resource path="res://agua.jpg" type="Texture" id=5]
 [ext_resource path="res://pasto/Ground037_1K_NormalGL.jpg" type="Texture" id=6]
 [ext_resource path="res://tierra/Ground030_1K_NormalGL.jpg" type="Texture" id=7]
 [ext_resource path="res://tierra/Ground030_1K_Color.jpg" type="Texture" id=8]
@@ -29,8 +30,6 @@ uniform float metallic;
 uniform float proximity_fade_distance;
 uniform float roughness : hint_range(0,1);
 uniform float point_size : hint_range(0,128);
-uniform sampler2D texture_roughness : hint_white;
-uniform vec4 roughness_texture_channel;
 uniform sampler2D texture_refraction;
 uniform float refraction : hint_range(-16,16);
 uniform vec4 refraction_texture_channel;
@@ -54,12 +53,11 @@ void fragment() {
 	vec4 albedo_tex = texture(texture_albedo,base_uv);
 	ALBEDO = albedo.rgb * albedo_tex.rgb;
 	METALLIC = metallic;
-	float roughness_tex = dot(texture(texture_roughness,base_uv),roughness_texture_channel);
-	ROUGHNESS = roughness_tex * roughness;
+	ROUGHNESS = roughness;
 	SPECULAR = specular;
 	
 	
-	NORMALMAP = texture(texture_normal,vec2(base_uv.x ,base_uv.y-TIME*0.03) * 1.2).rgb * texture(texture_normal,vec2(base_uv.x ,base_uv.y-TIME*-0.03)).rgb;
+	NORMALMAP = texture(texture_normal,vec2(base_uv.x + TIME * 0.05, base_uv.y )).rgb * texture(texture_normal,vec2(base_uv.x + TIME * -0.05, base_uv.y )).rgb;
 	
 	
 	NORMALMAP_DEPTH = normal_scale;
@@ -81,20 +79,21 @@ void fragment() {
 
 [sub_resource type="ShaderMaterial" id=4]
 shader = SubResource( 3 )
-shader_param/albedo = Color( 0.298039, 0.576471, 0.686275, 0.572549 )
+shader_param/albedo = Color( 0.333333, 0.564706, 0.647059, 0.607843 )
 shader_param/specular = 0.5
 shader_param/metallic = 0.0
-shader_param/proximity_fade_distance = 0.5
-shader_param/roughness = 0.05
+shader_param/proximity_fade_distance = 0.06
+shader_param/roughness = 0.0
 shader_param/point_size = 1.0
-shader_param/roughness_texture_channel = Plane( 1, 0, 0, 0 )
-shader_param/refraction = 0.5
+shader_param/refraction = 0.05
 shader_param/refraction_texture_channel = Plane( 1, 0, 0, 0 )
 shader_param/normal_scale = 1.0
-shader_param/uv1_scale = Vector3( 10, 10, 0 )
+shader_param/uv1_scale = Vector3( 10, 10, 1 )
 shader_param/uv1_offset = Vector3( 0, 0, 0 )
 shader_param/uv2_scale = Vector3( 1, 1, 1 )
 shader_param/uv2_offset = Vector3( 0, 0, 0 )
+shader_param/texture_refraction = ExtResource( 5 )
+shader_param/texture_normal = ExtResource( 5 )
 
 [node name="Spatial" type="Spatial"]
 
