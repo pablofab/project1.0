@@ -1,10 +1,10 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://addons/zylann.hterrain/hterrain_texture_set.gd" type="Script" id=1]
 [ext_resource path="res://src/player/Player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://suelo2/Ground007_1K_Color.jpg" type="Texture" id=3]
 [ext_resource path="res://pasto/Ground037_1K_Color.jpg" type="Texture" id=4]
-[ext_resource path="res://src/levels/terreno.gd" type="Script" id=5]
+[ext_resource path="res://src/player/Player2.gd" type="Script" id=5]
 [ext_resource path="res://pasto/Ground037_1K_NormalGL.jpg" type="Texture" id=6]
 [ext_resource path="res://tierra/Ground030_1K_NormalGL.jpg" type="Texture" id=7]
 [ext_resource path="res://tierra/Ground030_1K_Color.jpg" type="Texture" id=8]
@@ -15,6 +15,7 @@
 [ext_resource path="res://src/Enemy.gd" type="Script" id=13]
 [ext_resource path="res://src/Enemy.tscn" type="PackedScene" id=14]
 [ext_resource path="res://agua.jpg" type="Texture" id=15]
+[ext_resource path="res://src/levels/Camera.gd" type="Script" id=16]
 
 [sub_resource type="PlaneMesh" id=1]
 
@@ -99,7 +100,6 @@ mode = 0
 textures = [ [ ExtResource( 4 ), ExtResource( 8 ), ExtResource( 10 ), ExtResource( 3 ) ], [ ExtResource( 6 ), ExtResource( 7 ), ExtResource( 9 ), null ] ]
 
 [node name="Spatial" type="Spatial"]
-script = ExtResource( 5 )
 
 [node name="DirectionalLight" type="DirectionalLight" parent="."]
 transform = Transform( 0.731247, -0.512077, -0.450616, 0.682113, 0.548963, 0.483075, 0, -0.660618, 0.750722, 217.931, 53.0676, 208.248 )
@@ -145,5 +145,19 @@ transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0.70721
 [node name="MeshInstance" parent="Navigation/Enemy" index="1"]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0.658188, 1.00755, 0.166962 )
 
+[node name="Camera" type="Camera" parent="Navigation/Enemy"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.721626, 2.60313, 2.8031 )
+fov = 83.1243
+script = ExtResource( 16 )
+
+[node name="Player2" parent="Navigation" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 84.1098, 0.588727, 152.053 )
+collision_mask = 15
+script = ExtResource( 5 )
+
+[node name="Camera" parent="Navigation/Player2/SpringArm" index="0"]
+script = ExtResource( 16 )
+
 [editable path="Navigation/Player"]
 [editable path="Navigation/Enemy"]
+[editable path="Navigation/Player2"]

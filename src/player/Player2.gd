@@ -123,7 +123,3 @@ func apply_controller_rotation():
 		rotate_y(deg2rad(-axis_vector.x) * controller_sensitivity)
 		spring_arm.rotate_x(deg2rad(-axis_vector.y) * controller_sensitivity)
 		
-
-
-
-
