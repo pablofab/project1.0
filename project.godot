@@ -30,6 +30,10 @@ config/name="project1"
 run/main_scene="res://src/levels/terreno.tscn"
 config/icon="res://icon.png"
 
+[editor_plugins]
+
+enabled=PoolStringArray( "res://addons/zylann.hterrain/plugin.cfg" )
+
 [input]
 
 click={

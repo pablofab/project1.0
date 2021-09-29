@@ -1,10 +1,10 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://addons/zylann.hterrain/hterrain_texture_set.gd" type="Script" id=1]
 [ext_resource path="res://src/player/Player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://suelo2/Ground007_1K_Color.jpg" type="Texture" id=3]
 [ext_resource path="res://pasto/Ground037_1K_Color.jpg" type="Texture" id=4]
-[ext_resource path="res://agua.jpg" type="Texture" id=5]
+[ext_resource path="res://src/levels/terreno.gd" type="Script" id=5]
 [ext_resource path="res://pasto/Ground037_1K_NormalGL.jpg" type="Texture" id=6]
 [ext_resource path="res://tierra/Ground030_1K_NormalGL.jpg" type="Texture" id=7]
 [ext_resource path="res://tierra/Ground030_1K_Color.jpg" type="Texture" id=8]
@@ -12,15 +12,13 @@
 [ext_resource path="res://suelo/Ground032_1K_Color.jpg" type="Texture" id=10]
 [ext_resource path="res://terrenowo/data.hterrain" type="Resource" id=11]
 [ext_resource path="res://addons/zylann.hterrain/hterrain.gd" type="Script" id=12]
+[ext_resource path="res://src/Enemy.gd" type="Script" id=13]
+[ext_resource path="res://src/Enemy.tscn" type="PackedScene" id=14]
+[ext_resource path="res://agua.jpg" type="Texture" id=15]
 
-[sub_resource type="Resource" id=1]
-script = ExtResource( 1 )
-mode = 0
-textures = [ [ ExtResource( 4 ), ExtResource( 8 ), ExtResource( 10 ), ExtResource( 3 ) ], [ ExtResource( 6 ), ExtResource( 7 ), ExtResource( 9 ), null ] ]
+[sub_resource type="PlaneMesh" id=1]
 
-[sub_resource type="PlaneMesh" id=2]
-
-[sub_resource type="Shader" id=3]
+[sub_resource type="Shader" id=2]
 code = "shader_type spatial;
 render_mode blend_mix,depth_draw_always,cull_back,diffuse_burley,specular_schlick_ggx;
 uniform vec4 albedo : hint_color;
@@ -77,8 +75,8 @@ void fragment() {
 }
 "
 
-[sub_resource type="ShaderMaterial" id=4]
-shader = SubResource( 3 )
+[sub_resource type="ShaderMaterial" id=3]
+shader = SubResource( 2 )
 shader_param/albedo = Color( 0.333333, 0.564706, 0.647059, 0.607843 )
 shader_param/specular = 0.5
 shader_param/metallic = 0.0
@@ -92,12 +90,32 @@ shader_param/uv1_scale = Vector3( 10, 10, 1 )
 shader_param/uv1_offset = Vector3( 0, 0, 0 )
 shader_param/uv2_scale = Vector3( 1, 1, 1 )
 shader_param/uv2_offset = Vector3( 0, 0, 0 )
-shader_param/texture_refraction = ExtResource( 5 )
-shader_param/texture_normal = ExtResource( 5 )
+shader_param/texture_refraction = ExtResource( 15 )
+shader_param/texture_normal = ExtResource( 15 )
+
+[sub_resource type="Resource" id=4]
+script = ExtResource( 1 )
+mode = 0
+textures = [ [ ExtResource( 4 ), ExtResource( 8 ), ExtResource( 10 ), ExtResource( 3 ) ], [ ExtResource( 6 ), ExtResource( 7 ), ExtResource( 9 ), null ] ]
 
 [node name="Spatial" type="Spatial"]
+script = ExtResource( 5 )
 
-[node name="HTerrain" type="Spatial" parent="."]
+[node name="DirectionalLight" type="DirectionalLight" parent="."]
+transform = Transform( 0.731247, -0.512077, -0.450616, 0.682113, 0.548963, 0.483075, 0, -0.660618, 0.750722, 217.931, 53.0676, 208.248 )
+light_energy = 0.42
+
+[node name="Agua" type="MeshInstance" parent="."]
+transform = Transform( 149.949, 0.0255352, 0.848574, -3.82908, 0.999673, -0.22156, -0.853954, 0.00133215, 149.997, 356.363, -4.73636, 165.493 )
+mesh = SubResource( 1 )
+material/0 = SubResource( 3 )
+
+[node name="Navigation" type="Navigation" parent="."]
+
+[node name="NavigationMeshInstance" type="NavigationMeshInstance" parent="Navigation"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -5.12412, -0.424227, 3.43279 )
+
+[node name="HTerrain" type="Spatial" parent="Navigation/NavigationMeshInstance"]
 script = ExtResource( 12 )
 _terrain_data = ExtResource( 11 )
 chunk_size = 32
@@ -107,23 +125,25 @@ collision_mask = 1
 shader_type = "Classic4Lite"
 custom_shader = null
 custom_globalmap_shader = null
-texture_set = SubResource( 1 )
+texture_set = SubResource( 4 )
 shader_params/u_ground_uv_scale = 20
 shader_params/u_depth_blending = true
 shader_params/u_triplanar = true
 shader_params/u_tile_reduction = Plane( 0, 0, 0, 0 )
 
-[node name="Agua" type="MeshInstance" parent="HTerrain"]
-transform = Transform( 149.949, 0.0255352, 0.848574, -3.82908, 0.999673, -0.22156, -0.853954, 0.00133215, 149.997, 356.363, -4.73636, 165.493 )
-mesh = SubResource( 2 )
-material/0 = SubResource( 4 )
-
-[node name="DirectionalLight" type="DirectionalLight" parent="HTerrain"]
-transform = Transform( 0.731247, -0.512078, -0.450616, 0.682113, 0.548963, 0.483074, 0, -0.660618, 0.750722, 217.931, 53.0676, 208.248 )
-light_energy = 0.42
-
-[node name="Player" parent="HTerrain" instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 102.617, 0.989705, 134.62 )
+[node name="Player" parent="Navigation" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 96.3507, 0.184875, 136.363 )
 collision_mask = 15
-gravity = -45
-jump_impulse = 25
+
+[node name="Enemy" parent="Navigation" instance=ExtResource( 14 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 126.899, -0.0918698, 151.313 )
+script = ExtResource( 13 )
+
+[node name="CollisionShape" parent="Navigation/Enemy" index="0"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0.707214, 0.994714, 0.124084 )
+
+[node name="MeshInstance" parent="Navigation/Enemy" index="1"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0.658188, 1.00755, 0.166962 )
+
+[editable path="Navigation/Player"]
+[editable path="Navigation/Enemy"]
