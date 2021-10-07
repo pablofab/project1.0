@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://addons/zylann.hterrain/hterrain_texture_set.gd" type="Script" id=1]
 [ext_resource path="res://src/player/Player.tscn" type="PackedScene" id=2]
@@ -16,6 +16,7 @@
 [ext_resource path="res://src/Enemy.tscn" type="PackedScene" id=14]
 [ext_resource path="res://agua.jpg" type="Texture" id=15]
 [ext_resource path="res://src/levels/Camera.gd" type="Script" id=16]
+[ext_resource path="res://src/levels/CanvasLayer.gd" type="Script" id=17]
 
 [sub_resource type="PlaneMesh" id=1]
 
@@ -154,6 +155,9 @@ script = ExtResource( 16 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 84.1098, 0.588727, 152.053 )
 collision_mask = 15
 script = ExtResource( 5 )
+
+[node name="CanvasLayer" type="CanvasLayer" parent="Navigation/Player2/CollisionShape" index="0"]
+script = ExtResource( 17 )
 
 [node name="Camera" parent="Navigation/Player2/SpringArm" index="0"]
 script = ExtResource( 16 )
