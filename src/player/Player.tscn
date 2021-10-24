@@ -1,6 +1,9 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://src/player/Player.gd" type="Script" id=1]
+[ext_resource path="res://Gun2.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Gun1.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Gun3.tscn" type="PackedScene" id=4]
 
 [sub_resource type="SpatialMaterial" id=1]
 albedo_color = Color( 1, 0.678431, 0, 1 )
@@ -35,5 +38,14 @@ collision_mask = 4
 spring_length = 6.0
 
 [node name="Camera" type="Camera" parent="SpringArm"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5.00907 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.38419e-07, 5.00907 )
 far = 200.0
+
+[node name="Hand" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.09185, 2.20223, 0 )
+
+[node name="Gun1" parent="Hand" instance=ExtResource( 3 )]
+
+[node name="Gun2" parent="Hand" instance=ExtResource( 2 )]
+
+[node name="Gun3" parent="Hand" instance=ExtResource( 4 )]

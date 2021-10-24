@@ -11,6 +11,7 @@ export var controller_sensitivity = 3
 export var rot_speed = 5
 
 var camerap = true 
+var current_weapon = 1
 
 export (int, 0, 10) var push = 1
 
@@ -19,6 +20,39 @@ var snap_vector = Vector3.ZERO
 
 onready var spring_arm = $SpringArm
 onready var pivot = $Pivot
+onready var gun1 = $Hand/Gun1
+onready var gun2 = $Hand/Gun2
+onready var gun3 = $Hand/Gun3
+
+
+
+func weapon_select():
+	
+	if Input.is_action_just_pressed("weapon1"):
+		current_weapon = 1
+	elif Input.is_action_just_pressed("weapon2"):
+		current_weapon = 2
+	elif Input.is_action_just_pressed("weapon3"):
+		current_weapon = 3
+		
+	if current_weapon == 1:
+		gun1.visible = true
+		gun1.shoot()
+	else:
+		gun1.visible = false
+
+	if current_weapon == 2:
+		gun2.visible = true
+		gun2.shoot()
+	else:
+		gun2.visible = false
+
+	if current_weapon == 3:
+		gun3.visible = true
+		gun3.shoot()
+	else:
+		gun3.visible = false
+
 
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -54,6 +88,7 @@ func _unhandled_input(event):
 			
 
 func _physics_process(delta):
+	weapon_select()
 	var input_vector = get_input_vector()
 	var direction = get_direction(input_vector)
 	apply_movement(input_vector, direction, delta)
