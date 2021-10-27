@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://addons/zylann.hterrain/hterrain_texture_set.gd" type="Script" id=1]
 [ext_resource path="res://src/player/Player.tscn" type="PackedScene" id=2]
@@ -11,7 +11,6 @@
 [ext_resource path="res://suelo/Ground032_1K_Color.jpg" type="Texture" id=10]
 [ext_resource path="res://terrenowo/data.hterrain" type="Resource" id=11]
 [ext_resource path="res://addons/zylann.hterrain/hterrain.gd" type="Script" id=12]
-[ext_resource path="res://src/Enemy.gd" type="Script" id=13]
 [ext_resource path="res://src/Enemy.tscn" type="PackedScene" id=14]
 [ext_resource path="res://agua.jpg" type="Texture" id=15]
 [ext_resource path="res://src/levels/Camera.gd" type="Script" id=16]
@@ -94,6 +93,16 @@ shader_param/uv2_offset = Vector3( 0, 0, 0 )
 shader_param/texture_refraction = ExtResource( 15 )
 shader_param/texture_normal = ExtResource( 15 )
 
+[sub_resource type="NavigationMesh" id=8]
+vertices = PoolVector3Array( 82.6, -0.11, 101.6, 76.6, -0.11, 101.6, 76.6, -0.11, 107.6, 76.6, -0.11, 194, 76.6, -0.11, 200.3, 82.6, -0.11, 200.3, 175.3, -0.11, 107.6, 175.3, -0.11, 101.6, 169, -0.11, 101.6, 169, -0.11, 200.3, 175.3, -0.11, 200.3, 175.3, -0.11, 194, 88.9, -0.11, 101.6, 82.6, -0.11, 101.6, 76.6, -0.11, 107.6, 76.6, -0.11, 113.9, 76.6, -0.11, 194, 82.6, -0.11, 200.3, 88.9, -0.11, 200.3, 76.6, -0.11, 187.7, 175.3, -0.11, 113.9, 175.3, -0.11, 107.6, 169, -0.11, 101.6, 162.7, -0.11, 101.6, 162.7, -0.11, 200.3, 169, -0.11, 200.3, 175.3, -0.11, 194, 125.8, -0.11, 101.6, 119.5, -0.11, 101.6, 76.6, -0.11, 144.5, 76.6, -0.11, 150.8, 144.1, -0.11, 200.3, 175.3, -0.11, 175.4, 175.3, -0.11, 169.1, 138.1, -0.11, 200.3, 175.3, -0.11, 144.5, 175.3, -0.11, 138.5, 138.1, -0.11, 101.6, 131.8, -0.11, 101.6, 162.7, -0.11, 200.3, 175.3, -0.11, 194, 175.3, -0.11, 187.7, 156.4, -0.11, 200.3, 94.9, -0.11, 101.6, 88.9, -0.11, 101.6, 76.6, -0.11, 113.9, 76.6, -0.11, 119.9, 76.6, -0.11, 187.7, 88.9, -0.11, 200.3, 94.9, -0.11, 200.3, 76.6, -0.11, 181.4, 175.3, -0.11, 119.9, 175.3, -0.11, 113.9, 162.7, -0.11, 101.6, 156.4, -0.11, 101.6, 113.5, -0.11, 101.6, 107.2, -0.11, 101.6, 76.6, -0.11, 132.2, 76.6, -0.11, 138.5, 76.6, -0.11, 163.1, 76.6, -0.11, 169.1, 107.2, -0.11, 200.3, 113.5, -0.11, 200.3, 76.6, -0.11, 150.8, 76.6, -0.11, 156.8, 119.5, -0.11, 200.3, 175.3, -0.11, 132.2, 144.1, -0.11, 101.6, 138.1, -0.11, 101.6, 175.3, -0.11, 138.5, 156.4, -0.11, 200.3, 175.3, -0.11, 187.7, 175.3, -0.11, 181.4, 150.4, -0.11, 200.3, 101.2, -0.11, 101.6, 94.9, -0.11, 101.6, 76.6, -0.11, 119.9, 76.6, -0.11, 126.2, 76.6, -0.11, 175.4, 76.6, -0.11, 181.4, 94.9, -0.11, 200.3, 101.2, -0.11, 200.3, 175.3, -0.11, 119.9, 156.4, -0.11, 101.6, 150.4, -0.11, 101.6, 175.3, -0.11, 126.2, 76.6, -0.11, 150.8, 119.5, -0.11, 200.3, 125.8, -0.11, 200.3, 175.3, -0.11, 156.8, 175.3, -0.11, 150.8, 125.8, -0.11, 101.6, 131.8, -0.11, 200.3, 175.3, -0.11, 163.1, 175.3, -0.11, 156.8, 125.8, -0.11, 200.3, 138.1, -0.11, 200.3, 175.3, -0.11, 169.1, 175.3, -0.11, 163.1, 131.8, -0.11, 200.3, 175.3, -0.11, 144.5, 131.8, -0.11, 101.6, 125.8, -0.11, 101.6, 175.3, -0.11, 150.8, 150.4, -0.11, 200.3, 175.3, -0.11, 181.4, 175.3, -0.11, 175.4, 144.1, -0.11, 200.3, 107.2, -0.11, 101.6, 101.2, -0.11, 101.6, 76.6, -0.11, 126.2, 76.6, -0.11, 132.2, 76.6, -0.11, 175.4, 101.2, -0.11, 200.3, 107.2, -0.11, 200.3, 76.6, -0.11, 169.1, 175.3, -0.11, 132.2, 175.3, -0.11, 126.2, 150.4, -0.11, 101.6, 144.1, -0.11, 101.6, 119.5, -0.11, 101.6, 113.5, -0.11, 101.6, 76.6, -0.11, 138.5, 76.6, -0.11, 144.5, 76.6, -0.11, 163.1, 113.5, -0.11, 200.3, 119.5, -0.11, 200.3, 76.6, -0.11, 156.8 )
+polygons = [ PoolIntArray( 2, 1, 0 ), PoolIntArray( 5, 4, 3 ), PoolIntArray( 8, 7, 6 ), PoolIntArray( 11, 10, 9 ), PoolIntArray( 13, 12, 14 ), PoolIntArray( 14, 12, 15 ), PoolIntArray( 17, 16, 18 ), PoolIntArray( 18, 16, 19 ), PoolIntArray( 21, 20, 22 ), PoolIntArray( 22, 20, 23 ), PoolIntArray( 26, 25, 24 ), PoolIntArray( 28, 27, 29 ), PoolIntArray( 29, 27, 30 ), PoolIntArray( 32, 31, 33 ), PoolIntArray( 33, 31, 34 ), PoolIntArray( 36, 35, 37 ), PoolIntArray( 37, 35, 38 ), PoolIntArray( 40, 39, 41 ), PoolIntArray( 41, 39, 42 ), PoolIntArray( 44, 43, 45 ), PoolIntArray( 45, 43, 46 ), PoolIntArray( 48, 47, 49 ), PoolIntArray( 49, 47, 50 ), PoolIntArray( 52, 51, 53 ), PoolIntArray( 53, 51, 54 ), PoolIntArray( 56, 55, 57 ), PoolIntArray( 57, 55, 58 ), PoolIntArray( 60, 59, 61 ), PoolIntArray( 61, 59, 62 ), PoolIntArray( 65, 64, 63 ), PoolIntArray( 67, 66, 68 ), PoolIntArray( 68, 66, 69 ), PoolIntArray( 71, 70, 72 ), PoolIntArray( 72, 70, 73 ), PoolIntArray( 75, 74, 76 ), PoolIntArray( 76, 74, 77 ), PoolIntArray( 79, 78, 80 ), PoolIntArray( 80, 78, 81 ), PoolIntArray( 83, 82, 84 ), PoolIntArray( 84, 82, 85 ), PoolIntArray( 87, 86, 88 ), PoolIntArray( 88, 86, 89 ), PoolIntArray( 89, 86, 90 ), PoolIntArray( 90, 86, 91 ), PoolIntArray( 93, 92, 94 ), PoolIntArray( 94, 92, 95 ), PoolIntArray( 97, 96, 98 ), PoolIntArray( 98, 96, 99 ), PoolIntArray( 101, 100, 102 ), PoolIntArray( 102, 100, 103 ), PoolIntArray( 105, 104, 106 ), PoolIntArray( 106, 104, 107 ), PoolIntArray( 109, 108, 110 ), PoolIntArray( 110, 108, 111 ), PoolIntArray( 113, 112, 114 ), PoolIntArray( 114, 112, 115 ), PoolIntArray( 117, 116, 118 ), PoolIntArray( 118, 116, 119 ), PoolIntArray( 121, 120, 122 ), PoolIntArray( 122, 120, 123 ), PoolIntArray( 125, 124, 126 ), PoolIntArray( 126, 124, 127 ) ]
+
+[sub_resource type="CubeMesh" id=6]
+size = Vector3( 10, 1, 10 )
+
+[sub_resource type="ConcavePolygonShape" id=7]
+data = PoolVector3Array( -1, 1, 1, 1, 1, 1, -1, -1, 1, 1, 1, 1, 1, -1, 1, -1, -1, 1, 1, 1, -1, -1, 1, -1, 1, -1, -1, -1, 1, -1, -1, -1, -1, 1, -1, -1, 1, 1, 1, 1, 1, -1, 1, -1, 1, 1, 1, -1, 1, -1, -1, 1, -1, 1, -1, 1, -1, -1, 1, 1, -1, -1, -1, -1, 1, 1, -1, -1, 1, -1, -1, -1, 1, 1, 1, -1, 1, 1, 1, 1, -1, -1, 1, 1, -1, 1, -1, 1, 1, -1, -1, -1, 1, 1, -1, 1, -1, -1, -1, 1, -1, 1, 1, -1, -1, -1, -1, -1 )
+
 [sub_resource type="Resource" id=4]
 script = ExtResource( 1 )
 mode = 0
@@ -113,7 +122,18 @@ material/0 = SubResource( 3 )
 [node name="Navigation" type="Navigation" parent="."]
 
 [node name="NavigationMeshInstance" type="NavigationMeshInstance" parent="Navigation"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -5.12412, -0.424227, 3.43279 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -5.124, 0, 3.433 )
+navmesh = SubResource( 8 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Navigation/NavigationMeshInstance"]
+transform = Transform( 10, 0, 0, 0, 1, 0, 0, 0, 10, 126, -1.01, 151 )
+mesh = SubResource( 6 )
+material/0 = null
+
+[node name="StaticBody" type="StaticBody" parent="Navigation/NavigationMeshInstance/MeshInstance"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Navigation/NavigationMeshInstance/MeshInstance/StaticBody"]
+shape = SubResource( 7 )
 
 [node name="HTerrain" type="Spatial" parent="Navigation/NavigationMeshInstance"]
 script = ExtResource( 12 )
@@ -131,35 +151,29 @@ shader_params/u_depth_blending = true
 shader_params/u_triplanar = true
 shader_params/u_tile_reduction = Plane( 0, 0, 0, 0 )
 
-[node name="Player" parent="Navigation" instance=ExtResource( 2 )]
+[node name="Enemy" parent="Navigation" instance=ExtResource( 14 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 120.899, 0, 151.313 )
+
+[node name="MeshInstance" parent="Navigation/Enemy" index="0"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0.658188, 1.00755, 0.166962 )
+
+[node name="Player" parent="." instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 96.3507, 0.184875, 136.363 )
 collision_mask = 15
 
-[node name="Enemy" parent="Navigation" instance=ExtResource( 14 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 126.899, -0.0918698, 151.313 )
-script = ExtResource( 13 )
-
-[node name="CollisionShape" parent="Navigation/Enemy" index="0"]
-transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0.707214, 0.994714, 0.124084 )
-
-[node name="MeshInstance" parent="Navigation/Enemy" index="1"]
-transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0.658188, 1.00755, 0.166962 )
-
-[node name="Camera" type="Camera" parent="Navigation/Enemy"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.721626, 2.60313, 2.8031 )
-fov = 83.1243
+[node name="Camera" parent="Player/SpringArm" index="0"]
 script = ExtResource( 16 )
 
-[node name="Player2" parent="Navigation" instance=ExtResource( 2 )]
+[node name="Player2" parent="." instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 84.1098, 0.588727, 152.053 )
 collision_mask = 15
 
-[node name="CanvasLayer" type="CanvasLayer" parent="Navigation/Player2/CollisionShape" index="0"]
+[node name="CanvasLayer" type="CanvasLayer" parent="Player2/CollisionShape" index="0"]
 script = ExtResource( 17 )
 
-[node name="Camera" parent="Navigation/Player2/SpringArm" index="0"]
+[node name="Camera" parent="Player2/SpringArm" index="0"]
 script = ExtResource( 16 )
 
-[editable path="Navigation/Player"]
 [editable path="Navigation/Enemy"]
-[editable path="Navigation/Player2"]
+[editable path="Player"]
+[editable path="Player2"]

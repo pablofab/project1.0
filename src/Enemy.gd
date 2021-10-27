@@ -1,41 +1,34 @@
 extends KinematicBody
 
-const SPEED = 7.0
 
-var target = null
-var nav : Navigation = null
-var vel = Vector3()
+
+
+var path = []
+var path_node = 0
+
+var speed = 8
+
+onready var nav = get_parent()
+onready var player = $"../../Player"
+
+
+
+func _ready():
+	pass
+
 
 func _physics_process(delta):
-	if target == null:
-		return
-		
-	var path = get_path_to(target.global_transform.origin)	
 	
-	if path.size() > 0:
-		move_along_path(path)
-		
-func get_path_to(target):
-	return nav.get_simple_path(global_transform.origin, target)
-	
-	
-func move_along_path(path):
-	if path.size() <= 0:
-		return
-	
-	path.remove(0)
-	
-	var target = path[0]
-	
-	if global_transform.origin.distance_to(target) < 0.1:
-		path.remove(0)
-	
-	vel = (target - translation).normalized() * SPEED
-	
-	vel = move_and_slide(vel)
-	
-func set_target(target):
-	self.target = target
-	
-func set_nav(nav):
-	self.nav = nav							
+	if path_node < path.size():
+		var direction = (path[path_node] - global_transform.origin)
+		if direction.length() < 1:
+			path_node += 1
+		else:
+			move_and_slide(direction.normalized() * speed, Vector3.UP)	
+
+func move_to(target_pos):
+	path = nav.get_simple_path(global_transform.origin, target_pos)			
+	path_node = 0
+
+func _on_Timer_timeout():
+	move_to(player.global_transform.origin)
