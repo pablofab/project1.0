@@ -41,10 +41,19 @@ spring_length = 6.0
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.38419e-07, 5.00907 )
 far = 200.0
 
+[node name="Raycontainer" type="Spatial" parent="SpringArm/Camera"]
+
+[node name="RayCast" type="RayCast" parent="SpringArm/Camera"]
+enabled = true
+cast_to = Vector3( 0, 100, -1000 )
+
 [node name="Hand" type="Spatial" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.09185, 2.20223, 0 )
 
 [node name="Gun1" parent="Hand" instance=ExtResource( 3 )]
+
+[node name="muzzle" type="Spatial" parent="Hand/Gun1"]
+transform = Transform( 0.937986, 0, 0.346674, 0, 1, 0, -0.346674, 0, 0.937986, 0, 0, 0 )
 
 [node name="Gun2" parent="Hand" instance=ExtResource( 2 )]
 

@@ -6,6 +6,7 @@ var path = []
 var cur_path_idx = 0
 var velocity = Vector3.ZERO
 var threshold = .1
+var health = 200
 
 onready var nav = get_parent()
 
@@ -25,3 +26,6 @@ func get_target_path(target_pos):
 	path = nav.get_simple_path(global_transform.origin, target_pos)
 
 
+func _process(delta):
+	if health <= 0:
+		queue_free()
