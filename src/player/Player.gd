@@ -12,15 +12,19 @@ export var rot_speed = 5
 
 var camerap = true 
 var current_weapon = 1
+var current_player = 1
 
 export (int, 0, 10) var push = 1
 
 var velocity = Vector3.ZERO
 var snap_vector = Vector3.ZERO
 
-var damage = 80
+
 var shotgun_dmg = 50
 var spread = 10
+
+onready var health = 100
+onready var i = 1
 
 onready var spring_arm = $SpringArm
 onready var pivot = $Pivot
@@ -29,6 +33,45 @@ onready var gun2 = $Hand/Gun2
 onready var gun3 = $Hand/Gun3
 onready var aimcast = $SpringArm/Camera/RayCast
 onready var muzzle = $Hand/Gun1/muzzle
+onready var player1 = get_parent().get_node("Player")
+onready var player2 = get_parent().get_node("Player2")
+onready var ambient = get_parent().get_node("WorldEnvironment")
+onready var enemy = get_parent().get_node("Navigation/Enemy")
+
+onready var damage = 40
+
+
+func player_health():
+	
+	if health < 0 and i==1:
+		
+		i-= 1
+		
+		print("game over")
+			
+		#agregar pantalla de game over 
+		
+
+
+func player_select():
+	
+	if Input.is_action_just_pressed("ui_focus_next") and current_player == 1:
+		current_player = 2
+				
+	elif Input.is_action_just_pressed("ui_focus_next") and current_player == 2:
+		current_player = 1
+	
+	if current_player == 1 and i==1:
+		player1.visible = true
+		ambient.environment.set_background(2)
+	else:
+		player1.visible = false
+
+	if current_player == 2 and i==1:
+		player2.visible = true
+		ambient.environment.set_background(0)
+	else:
+		player2.visible = false
 
 
 func weapon_select():
@@ -67,19 +110,8 @@ func _ready():
 		
 	
 func _unhandled_input(event):
-	if event is InputEventKey:
-		
-		if event.pressed and event.scancode == KEY_TAB:
-			camerap = not camerap
-			if camerap:
-				$SpringArm/Camera.current = true
-			else:
-				get_parent().get_node("Player2").get_node("SpringArm").get_node("Camera").switch()
-				
-				
-				
-
-			
+	
+							
 		
 	
 	if event.is_action_pressed("click"):
@@ -100,17 +132,29 @@ func _physics_process(delta):
 	
 	if Input.is_action_just_pressed("fire"):
 		if aimcast.is_colliding():
-			var bullet = get_world().direct_space_state
-			var collision = bullet.intersect_ray(muzzle.global_transform.origin, aimcast.get_collision_point())
+			var target = aimcast.get_collider()
+			if target.is_in_group("Enemy"):
+				print("hit enemy")
+				target.health -= damage
 			
-			if collision:
-				var target = collision.collider
+			
+			
+#			var bullet = get_world().direct_space_state
+#			var collision = bullet.intersect_ray(muzzle.global_transform.origin, aimcast.get_collision_point())
+			
+#			if collision:
+#				var target = collision.collider
 				
-				if target.is_in_group("Enemy"):
-					print("hit enemy")
-					target.health -= damage
+#				if target.is_in_group("Enemy"):
+#					print("hit enemy")
+#					target.health -= damage
 					
 	weapon_select()
+	
+	player_health()
+	
+	player_select()
+	
 	var input_vector = get_input_vector()
 	var direction = get_direction(input_vector)
 	apply_movement(input_vector, direction, delta)

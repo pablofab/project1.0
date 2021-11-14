@@ -1,0 +1,62 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://Gun2.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Gun1.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Gun3.tscn" type="PackedScene" id=3]
+[ext_resource path="res://src/player/Player.gd" type="Script" id=4]
+
+[sub_resource type="SpatialMaterial" id=4]
+albedo_color = Color( 0.564706, 0, 0.490196, 1 )
+
+[sub_resource type="CapsuleMesh" id=2]
+material = SubResource( 4 )
+radius = 0.5
+mid_height = 2.0
+
+[sub_resource type="CapsuleShape" id=3]
+radius = 0.5
+height = 2.0
+
+[node name="Spatial" type="Spatial"]
+
+[node name="Player2" type="KinematicBody" parent="."]
+collision_mask = 3
+script = ExtResource( 4 )
+
+[node name="Pivot" type="Position3D" parent="Player2"]
+
+[node name="Skin" type="MeshInstance" parent="Player2/Pivot"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 1.5, 0 )
+mesh = SubResource( 2 )
+material/0 = null
+
+[node name="CollisionShape" type="CollisionShape" parent="Player2"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 1.5, 0 )
+shape = SubResource( 3 )
+
+[node name="SpringArm" type="SpringArm" parent="Player2"]
+transform = Transform( 1, 0, 0, 0, 0.971652, 0.236414, 0, -0.236414, 0.971652, 0, 2.4, 0 )
+collision_mask = 4
+spring_length = 6.0
+
+[node name="Camera" type="Camera" parent="Player2/SpringArm"]
+transform = Transform( 1, 0, 0, 0, 0.980475, -0.196648, 0, 0.196648, 0.980475, 0, -7.15256e-07, 5.00907 )
+far = 200.0
+
+[node name="RayCast" type="RayCast" parent="Player2/SpringArm/Camera"]
+enabled = true
+cast_to = Vector3( 0, 0, -1000 )
+
+[node name="Hand" type="Spatial" parent="Player2"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.09185, 2.20223, 0 )
+
+[node name="Gun1" parent="Player2/Hand" instance=ExtResource( 2 )]
+
+[node name="muzzle" type="Spatial" parent="Player2/Hand/Gun1"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.277241 )
+
+[node name="Gun2" parent="Player2/Hand" instance=ExtResource( 1 )]
+visible = false
+
+[node name="Gun3" parent="Player2/Hand" instance=ExtResource( 3 )]
+visible = false

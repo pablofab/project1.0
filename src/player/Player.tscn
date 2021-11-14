@@ -6,7 +6,7 @@
 [ext_resource path="res://Gun3.tscn" type="PackedScene" id=4]
 
 [sub_resource type="SpatialMaterial" id=1]
-albedo_color = Color( 1, 0.678431, 0, 1 )
+albedo_color = Color( 1, 0, 0.866667, 1 )
 
 [sub_resource type="CapsuleMesh" id=2]
 material = SubResource( 1 )
@@ -33,19 +33,18 @@ transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 1.5,
 shape = SubResource( 3 )
 
 [node name="SpringArm" type="SpringArm" parent="."]
-transform = Transform( 1, 0, 0, 0, 0.951476, 0.307722, 0, -0.307722, 0.951476, 0, 2.4, 0 )
+transform = Transform( 1, 0, 0, 0, 0.971652, 0.236414, 0, -0.236414, 0.971652, 0, 2.4, 0 )
 collision_mask = 4
 spring_length = 6.0
 
 [node name="Camera" type="Camera" parent="SpringArm"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.38419e-07, 5.00907 )
+transform = Transform( 1, 0, 0, 0, 0.980475, -0.196648, 0, 0.196648, 0.980475, 0, -7.15256e-07, 5.00907 )
 far = 200.0
-
-[node name="Raycontainer" type="Spatial" parent="SpringArm/Camera"]
 
 [node name="RayCast" type="RayCast" parent="SpringArm/Camera"]
 enabled = true
-cast_to = Vector3( 0, 100, -1000 )
+cast_to = Vector3( 0, 0, -1000 )
+collision_mask = 3
 
 [node name="Hand" type="Spatial" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.09185, 2.20223, 0 )
@@ -53,8 +52,10 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.09185, 2.20223, 0 )
 [node name="Gun1" parent="Hand" instance=ExtResource( 3 )]
 
 [node name="muzzle" type="Spatial" parent="Hand/Gun1"]
-transform = Transform( 0.937986, 0, 0.346674, 0, 1, 0, -0.346674, 0, 0.937986, 0, 0, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.277241 )
 
 [node name="Gun2" parent="Hand" instance=ExtResource( 2 )]
+visible = false
 
 [node name="Gun3" parent="Hand" instance=ExtResource( 4 )]
+visible = false

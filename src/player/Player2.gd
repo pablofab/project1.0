@@ -57,20 +57,7 @@ func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	
 func _unhandled_input(event):
-	if event is InputEventKey:
-		
-		if event.pressed and event.scancode == KEY_TAB:
-			camerap = not camerap
-			if camerap:
-				$SpringArm/Camera.current = true
-			else:
-				get_parent().get_node("Player2").get_node("SpringArm").get_node("Camera").switch()
-				
-				
-				
-
-			
-		
+	
 	
 	if event.is_action_pressed("click"):
 		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)

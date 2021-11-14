@@ -1,5 +1,7 @@
 extends Control
 
+onready var dmgenemy = get_parent().get_parent().get_node("Navigation/Enemy")
+
 
 
 
@@ -10,3 +12,7 @@ func _ready():
 
 
 
+func lifebar():
+	if dmgenemy._on_Timer_timeout():
+		value = get_parent().get_parent().get_node("Player").health
+	
